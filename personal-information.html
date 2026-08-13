@@ -1,0 +1,223 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#080808">
+<title>Benz Era — Personal Information</title>
+<style>
+:root{
+  --black:#070707;--black2:#151515;--silver:#aeb3b7;--bg:#f7f7f6;
+  --line:#e2e4e5;--muted:#858a8e;--white:#fff;
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:Inter,Arial,Helvetica,sans-serif;color:#111}
+body{background:#d7d9da;-webkit-font-smoothing:antialiased}
+button,input{font:inherit}
+button{cursor:pointer}
+.app{
+  width:100%;max-width:460px;min-height:100vh;margin:auto;background:var(--bg);
+  padding-bottom:28px;box-shadow:0 0 40px #0002;
+}
+.top{
+  background:var(--black);color:#fff;padding:16px 15px 19px;
+  border-bottom:1px solid #2c2c2c;
+}
+.topline{display:flex;align-items:center;gap:12px}
+.back{
+  width:36px;height:36px;border:1px solid #383838;border-radius:50%;
+  background:#111;color:#fff;font-size:22px;line-height:30px
+}
+.brand{flex:1;text-align:center}
+.brand b{font:700 17px Georgia,serif;letter-spacing:3px}
+.brand small{display:block;margin-top:5px;color:#aeb2b5;font-size:6px;letter-spacing:2px}
+.page-title{margin-top:17px;font:700 24px Georgia,serif}
+.page-sub{margin-top:5px;color:#aeb2b5;font-size:8px;letter-spacing:1px}
+.profile-summary{
+  margin:14px 13px 12px;padding:15px;background:linear-gradient(135deg,#080808,#292b2d);
+  border-radius:17px;color:#fff;display:flex;align-items:center;gap:12px;
+  box-shadow:0 9px 22px #00000018
+}
+.avatar{
+  width:50px;height:50px;border-radius:50%;background:linear-gradient(145deg,#fff,#aeb3b7);
+  color:#111;display:flex;align-items:center;justify-content:center;
+  font:700 20px Georgia,serif;border:2px solid #fff;flex:0 0 50px
+}
+.summary-label{font-size:7px;color:#c9cdd0;letter-spacing:1.5px}
+.summary-name{margin-top:4px;font:700 18px Georgia,serif;word-break:break-word}
+.summary-status{
+  display:inline-block;margin-top:6px;padding:5px 8px;border-radius:20px;
+  background:#fff;color:#111;font-size:7px;font-weight:900;letter-spacing:.6px
+}
+.section-title{padding:8px 13px 10px;display:flex;align-items:center;gap:10px}
+.section-title:before,.section-title:after{content:"";height:1px;background:#c9ccce;flex:1}
+.section-title h2{margin:0;font:700 11px Georgia,serif;letter-spacing:1px;white-space:nowrap}
+.form-card{
+  margin:0 13px 12px;background:#fff;border:1px solid var(--line);
+  border-radius:16px;padding:15px;box-shadow:0 6px 18px #00000009
+}
+.field{margin-bottom:12px}
+.field:last-child{margin-bottom:0}
+.field label{
+  display:block;margin-bottom:6px;color:#7c8286;font-size:7px;
+  font-weight:900;letter-spacing:1px
+}
+.field input{
+  width:100%;padding:12px 11px;border:1px solid #d8dbdd;border-radius:9px;
+  background:#fafafa;color:#111;outline:none;font-size:11px
+}
+.field input:focus{border-color:#111;background:#fff;box-shadow:0 0 0 3px #0000000a}
+.field input:disabled{background:#f0f1f1;color:#777;cursor:not-allowed}
+.hint{margin-top:5px;font-size:7px;color:#92979a;line-height:1.45}
+.save{
+  width:calc(100% - 26px);margin:3px 13px 12px;border:0;border-radius:11px;
+  padding:13px;background:linear-gradient(180deg,#252525,#070707);
+  color:#fff;font-size:9px;font-weight:900;letter-spacing:1px;
+  box-shadow:0 7px 17px #00000020
+}
+.cancel{
+  width:calc(100% - 26px);margin:0 13px 14px;border:1px solid #d5d8da;
+  border-radius:11px;padding:12px;background:#fff;color:#111;font-size:9px;
+  font-weight:900;letter-spacing:.7px
+}
+.toast{
+  position:fixed;z-index:40;bottom:24px;left:50%;transform:translateX(-50%) translateY(8px);
+  background:#111;color:#fff;padding:10px 15px;border-radius:9px;font-size:10px;
+  opacity:0;pointer-events:none;transition:.22s;box-shadow:0 8px 20px #0003
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@media(min-width:461px){
+ body{padding:20px 0}
+ .app{border-radius:20px;overflow:hidden;min-height:calc(100vh - 40px)}
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+<header class="top">
+  <div class="topline">
+    <button class="back" onclick="goBack()" aria-label="Back">‹</button>
+    <div class="brand"><b>BENZ ERA</b><small>VIP MEMBERSHIP</small></div>
+    <div style="width:36px"></div>
+  </div>
+  <div class="page-title">Personal Information</div>
+  <div class="page-sub">MANAGE YOUR ACCOUNT DETAILS</div>
+</header>
+
+<section class="profile-summary">
+  <div class="avatar" id="avatar">U</div>
+  <div>
+    <div class="summary-label">BENZ ERA MEMBER</div>
+    <div class="summary-name" id="summaryName">Member</div>
+    <span class="summary-status">ACCOUNT ACTIVE</span>
+  </div>
+</section>
+
+<div class="section-title"><h2>PERSONAL DETAILS</h2></div>
+
+<section class="form-card">
+  <div class="field">
+    <label for="username">USERNAME</label>
+    <input id="username" type="text" autocomplete="username" placeholder="Username">
+    <div class="hint">Your Benz Era username.</div>
+  </div>
+
+  <div class="field">
+    <label for="memberId">MEMBER ID</label>
+    <input id="memberId" type="text" disabled placeholder="Member ID">
+    <div class="hint">Your member ID is linked to your account and cannot be changed here.</div>
+  </div>
+</section>
+
+<div class="section-title"><h2>CONTACT INFORMATION</h2></div>
+
+<section class="form-card">
+  <div class="field">
+    <label for="fullName">FULL NAME</label>
+    <input id="fullName" type="text" autocomplete="name" placeholder="Enter your full name">
+  </div>
+
+  <div class="field">
+    <label for="phone">PHONE NUMBER</label>
+    <input id="phone" type="tel" autocomplete="tel" placeholder="Enter phone number">
+  </div>
+
+  <div class="field">
+    <label for="email">EMAIL ADDRESS</label>
+    <input id="email" type="email" autocomplete="email" placeholder="Enter email address">
+  </div>
+</section>
+
+<button class="save" onclick="saveInformation()">SAVE CHANGES</button>
+<button class="cancel" onclick="goBack()">CANCEL & RETURN TO PROFILE</button>
+
+<div class="toast" id="toast"></div>
+</div>
+
+<script>
+const USER_ID_KEYS=['benz_user_id','user_id','member_id','userId','id'];
+const USERNAME_KEYS=['benz_username','username','registered_username','user_name','name'];
+
+function firstStored(keys){
+  for(const key of keys){
+    const value=localStorage.getItem(key);
+    if(value!==null && String(value).trim()!=='') return String(value).trim();
+  }
+  return '';
+}
+
+function loadInformation(){
+  const username=firstStored(USERNAME_KEYS);
+  const id=firstStored(USER_ID_KEYS);
+  const fullName=localStorage.getItem('benz_full_name') || '';
+  const phone=localStorage.getItem('benz_phone') || '';
+  const email=localStorage.getItem('benz_email') || '';
+
+  document.getElementById('username').value=username;
+  document.getElementById('memberId').value=id;
+  document.getElementById('fullName').value=fullName;
+  document.getElementById('phone').value=phone;
+  document.getElementById('email').value=email;
+
+  const display=username || fullName || 'Member';
+  document.getElementById('summaryName').textContent=display;
+  document.getElementById('avatar').textContent=display.charAt(0).toUpperCase() || 'U';
+}
+
+function saveInformation(){
+  const username=document.getElementById('username').value.trim();
+  const fullName=document.getElementById('fullName').value.trim();
+  const phone=document.getElementById('phone').value.trim();
+  const email=document.getElementById('email').value.trim();
+
+  if(!username){
+    msg('Username is required');
+    return;
+  }
+
+  localStorage.setItem('benz_username',username);
+  localStorage.setItem('benz_full_name',fullName);
+  localStorage.setItem('benz_phone',phone);
+  localStorage.setItem('benz_email',email);
+
+  msg('Information saved');
+  setTimeout(()=>window.location.href='profile.html',450);
+}
+
+function goBack(){
+  window.location.href='profile.html';
+}
+
+function msg(text){
+  const x=document.getElementById('toast');
+  x.textContent=text;
+  x.classList.add('show');
+  clearTimeout(window.t);
+  window.t=setTimeout(()=>x.classList.remove('show'),1700);
+}
+
+loadInformation();
+</script>
+</body>
+</html>

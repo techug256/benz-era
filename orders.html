@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#080808">
+<title>Benz Era — Orders</title>
+<style>
+:root{
+  --black:#070707;--charcoal:#151515;--graphite:#242424;
+  --silver:#aeb3b7;--light:#f5f4f0;--white:#fff;
+  --gold:#c8a24a;--gold2:#ead18a;--line:#deddda;
+  --muted:#7d8183;--green:#1f8b59;
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:Inter,Arial,Helvetica,sans-serif;color:#111}
+body{background:#d7d9da;-webkit-font-smoothing:antialiased}
+button{font:inherit;cursor:pointer}
+.app{width:100%;max-width:460px;min-height:100vh;margin:auto;background:var(--light);padding-bottom:88px;box-shadow:0 0 40px #0002}
+.header{
+  background:linear-gradient(135deg,#050505,#1b1b1b);color:#fff;
+  padding:14px 15px 16px;border-bottom:1px solid #303030
+}
+.head{display:flex;align-items:center;justify-content:space-between}
+.back,.profile-btn{
+  width:36px;height:36px;border:1px solid #c8a24a66;border-radius:50%;
+  background:linear-gradient(145deg,#222,#070707);color:#fff;font-size:20px
+}
+.logo{text-align:center;line-height:1}
+.logo b{font:700 21px Georgia,serif;letter-spacing:4px}
+.logo b span{color:var(--gold2)}
+.logo small{display:block;margin-top:5px;font-size:6px;letter-spacing:3px;color:#b8bbbd}
+.title{margin-top:17px;font:700 25px Georgia,serif}
+.subtitle{margin-top:5px;color:#b8bbbd;font-size:8px;letter-spacing:1.1px}
+.summary{
+  margin:13px 13px 12px;padding:14px;border-radius:16px;
+  background:linear-gradient(135deg,#080808,#262626);color:#fff;
+  border:1px solid #c8a24a55;box-shadow:0 10px 22px #00000020;
+  display:grid;grid-template-columns:1fr 1fr;gap:10px
+}
+.summary-item{padding:4px 3px}.summary-label{font-size:6px;letter-spacing:1.2px;color:#aaa}
+.summary-value{margin-top:4px;font:700 17px Georgia,serif;color:#f2f0e9}
+.filter-row{display:flex;gap:7px;padding:0 13px 12px}
+.filter{
+  flex:1;border:1px solid #d7d5d0;border-radius:9px;background:#fff;
+  color:#555;padding:9px 7px;font-size:7px;font-weight:900;letter-spacing:.5px
+}
+.filter.active{
+  background:#111;color:var(--gold2);border-color:#c8a24a
+}
+.section-title{padding:7px 13px 10px;display:flex;align-items:center;gap:10px}
+.section-title:before,.section-title:after{content:"";height:1px;background:#d0ceca;flex:1}
+.section-title h2{margin:0;font:700 11px Georgia,serif;letter-spacing:1px;white-space:nowrap}
+.orders{padding:0 13px}
+.order{
+  background:#fff;border:1px solid var(--line);border-radius:16px;
+  margin-bottom:11px;padding:14px;box-shadow:0 6px 18px #00000009
+}
+.order-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.package-wrap{display:flex;gap:10px;min-width:0}
+.package-icon{
+  width:43px;height:43px;flex:0 0 43px;border-radius:12px;
+  background:linear-gradient(145deg,#292929,#080808);color:var(--gold2);
+  border:1px solid #c8a24a88;display:flex;align-items:center;justify-content:center;
+  font:700 17px Georgia,serif
+}
+.package-name{font:700 15px Georgia,serif;line-height:1.15}
+.order-id{margin-top:5px;color:#85898a;font-size:7px;letter-spacing:.4px;word-break:break-all}
+.status{
+  padding:6px 8px;border-radius:20px;font-size:6px;font-weight:900;
+  letter-spacing:.5px;white-space:nowrap
+}
+.status.completed{background:#eeeae0;color:#806629;border:1px solid #d8c48b}
+.status.pending{background:#f0f0ee;color:#5c5e5e;border:1px solid #d2d3d1}
+.status.failed{background:#ece9e7;color:#6c5b54;border:1px solid #d2c8c2}
+.details{
+  display:grid;grid-template-columns:1fr 1fr;margin-top:13px;
+  border-top:1px solid #ececea;border-bottom:1px solid #ececea
+}
+.detail{padding:10px 5px}.detail:nth-child(odd){border-right:1px solid #ececea}
+.detail-label{font-size:6px;color:#919596;letter-spacing:.8px}.detail-value{margin-top:4px;font-size:9px;font-weight:800;color:#222}
+.order-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:11px}
+.purchase-date{font-size:7px;color:#8a8e8f}
+.view-btn{
+  border:1px solid #c8a24a;background:linear-gradient(145deg,#242424,#080808);
+  color:var(--gold2);border-radius:8px;padding:8px 11px;font-size:7px;font-weight:900
+}
+.empty{
+  margin:0 13px 12px;background:#fff;border:1px dashed #c9c9c5;
+  border-radius:16px;padding:30px 18px;text-align:center
+}
+.empty-icon{
+  width:48px;height:48px;margin:0 auto 10px;border-radius:14px;
+  background:#171717;color:var(--gold2);display:flex;align-items:center;justify-content:center;
+  font:700 20px Georgia,serif;border:1px solid #c8a24a66
+}
+.empty h3{margin:0;font:700 16px Georgia,serif}.empty p{margin:6px auto 0;max-width:260px;color:#888d8e;font-size:8px;line-height:1.55}
+.nav{
+  position:fixed;bottom:0;left:50%;transform:translateX(-50%);
+  width:min(460px,100%);height:74px;padding-bottom:env(safe-area-inset-bottom);
+  background:#080808;border-top:1px solid #2c2c2c;display:grid;
+  grid-template-columns:repeat(5,1fr);z-index:30
+}
+.nav button{border:0;background:none;color:#8e9295;font-size:8px;padding-top:6px}
+.nav i{display:flex;align-items:center;justify-content:center;width:34px;height:28px;margin:0 auto 4px;font-style:normal;font-size:17px}
+.nav .active{color:var(--gold2);font-weight:800}
+.nav .active i{background:linear-gradient(145deg,#f0d98f,#c8a24a);color:#080808;border-radius:10px;box-shadow:0 3px 10px #c8a24a44}
+.toast{
+  position:fixed;z-index:40;bottom:90px;left:50%;transform:translateX(-50%) translateY(8px);
+  background:#111;color:#fff;padding:10px 15px;border-radius:9px;font-size:10px;
+  opacity:0;pointer-events:none;transition:.22s
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@media(min-width:461px){
+ body{padding:20px 0}.app{border-radius:20px;overflow:hidden;min-height:calc(100vh - 40px)}
+ .nav{bottom:20px;border-radius:0 0 20px 20px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+<header class="header">
+  <div class="head">
+    <button class="back" onclick="goBack()" aria-label="Back">‹</button>
+    <div class="logo"><b>BENZ <span>ERA</span></b><small>PREMIUM LIFESTYLE</small></div>
+    <button class="profile-btn" onclick="goProfile()" aria-label="Profile">♙</button>
+  </div>
+  <div class="title">My Orders</div>
+  <div class="subtitle">YOUR COMPLETE VIP PURCHASE HISTORY</div>
+</header>
+
+<section class="summary">
+  <div class="summary-item">
+    <div class="summary-label">TOTAL PURCHASES</div>
+    <div class="summary-value" id="totalOrders">0</div>
+  </div>
+  <div class="summary-item">
+    <div class="summary-label">ACTIVE VIP PACKAGES</div>
+    <div class="summary-value" id="activeOrders">0</div>
+  </div>
+</section>
+
+<div class="filter-row">
+  <button class="filter active" onclick="setFilter('all',this)">ALL PURCHASES</button>
+  <button class="filter" onclick="setFilter('active',this)">ACTIVE</button>
+  <button class="filter" onclick="setFilter('completed',this)">COMPLETED</button>
+</div>
+
+<div class="section-title"><h2>PURCHASE HISTORY</h2></div>
+<section class="orders" id="orders"></section>
+
+<nav class="nav">
+  <button onclick="goHome()"><i>⌂</i>Home</button>
+  <button class="active"><i>□</i>Orders</button>
+  <button onclick="goPromotion()"><i>◇</i>Promotion</button>
+  <button onclick="goTeam()"><i>♧</i>Team</button>
+  <button onclick="goProfile()"><i>♙</i>Profile</button>
+</nav>
+
+<div class="toast" id="toast"></div>
+</div>
+
+<script>
+let currentFilter='all';
+
+function readOrders(){
+  const keys=['benz_orders','benz_purchases','orders','purchases','vip_purchases'];
+  for(const key of keys){
+    const raw=localStorage.getItem(key);
+    if(!raw) continue;
+    try{
+      const parsed=JSON.parse(raw);
+      if(Array.isArray(parsed)) return parsed;
+    }catch(e){}
+  }
+  return [];
+}
+
+function normalize(order,index){
+  return {
+    package: order.package || order.packageName || order.plan || order.name || 'VIP Package',
+    id: order.id || order.orderId || order.order_id || ('BENZ-'+String(index+1).padStart(5,'0')),
+    amount: order.amount ?? order.price ?? order.deposit ?? order.total ?? '—',
+    date: order.date || order.createdAt || order.created_at || '—',
+    payment: order.payment || order.paymentMethod || order.method || '—',
+    status: String(order.status || order.state || 'completed').toLowerCase(),
+    active: order.active === true || String(order.status||'').toLowerCase()==='active'
+  };
+}
+
+function statusClass(status){
+  if(status.includes('fail') || status.includes('cancel')) return 'failed';
+  if(status.includes('pending') || status.includes('process')) return 'pending';
+  return 'completed';
+}
+
+function prettyStatus(status){
+  if(status.includes('fail')) return 'FAILED';
+  if(status.includes('cancel')) return 'CANCELLED';
+  if(status.includes('pending') || status.includes('process')) return 'PENDING';
+  if(status.includes('active')) return 'ACTIVE';
+  return 'COMPLETED';
+}
+
+function render(){
+  const all=readOrders().map(normalize);
+  const activeCount=all.filter(o=>o.active || o.status.includes('active')).length;
+  document.getElementById('totalOrders').textContent=all.length;
+  document.getElementById('activeOrders').textContent=activeCount;
+
+  let list=all;
+  if(currentFilter==='active') list=all.filter(o=>o.active || o.status.includes('active'));
+  if(currentFilter==='completed') list=all.filter(o=>statusClass(o.status)==='completed' && !o.status.includes('active'));
+
+  const container=document.getElementById('orders');
+
+  if(!list.length){
+    container.innerHTML=`
+      <div class="empty">
+        <div class="empty-icon">◇</div>
+        <h3>${all.length ? 'No Purchases Found' : 'No VIP Purchases Yet'}</h3>
+        <p>${all.length ? 'There are no purchases matching this filter.' : 'When you purchase a VIP package, the order will appear here automatically with its full purchase details.'}</p>
+      </div>`;
+    return;
+  }
+
+  container.innerHTML=list.map((o,i)=>`
+    <article class="order">
+      <div class="order-top">
+        <div class="package-wrap">
+          <div class="package-icon">B</div>
+          <div>
+            <div class="package-name">${escapeHtml(o.package)}</div>
+            <div class="order-id">ORDER ID: ${escapeHtml(String(o.id))}</div>
+          </div>
+        </div>
+        <span class="status ${statusClass(o.status)}">${prettyStatus(o.status)}</span>
+      </div>
+
+      <div class="details">
+        <div class="detail">
+          <div class="detail-label">PURCHASE AMOUNT</div>
+          <div class="detail-value">${escapeHtml(String(o.amount))}</div>
+        </div>
+        <div class="detail">
+          <div class="detail-label">PAYMENT METHOD</div>
+          <div class="detail-value">${escapeHtml(String(o.payment))}</div>
+        </div>
+      </div>
+
+      <div class="order-bottom">
+        <div class="purchase-date">PURCHASED: ${escapeHtml(String(o.date))}</div>
+        <button class="view-btn" onclick="viewOrder(${i})">VIEW DETAILS</button>
+      </div>
+    </article>
+  `).join('');
+}
+
+function viewOrder(index){
+  msg('Purchase details selected');
+}
+
+function setFilter(filter,button){
+  currentFilter=filter;
+  document.querySelectorAll('.filter').forEach(b=>b.classList.remove('active'));
+  button.classList.add('active');
+  render();
+}
+
+function escapeHtml(value){
+  return value.replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
+}
+
+function goBack(){window.location.href='profile.html'}
+function goProfile(){window.location.href='profile.html'}
+function goHome(){window.location.href='index.html'}
+function goPromotion(){window.location.href='promotion.html'}
+function goTeam(){window.location.href='team.html'}
+function msg(text){
+  const x=document.getElementById('toast');
+  x.textContent=text;x.classList.add('show');
+  clearTimeout(window.t);window.t=setTimeout(()=>x.classList.remove('show'),1700);
+}
+render();
+</script>
+</body>
+</html>

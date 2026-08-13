@@ -1,0 +1,518 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#080808">
+<title>Benz Era — VIP Membership</title>
+<style>
+:root{
+  --black:#070707;
+  --black-2:#111111;
+  --graphite:#1b1b1b;
+  --silver:#a8adb2;
+  --silver-2:#d9dde0;
+  --line:#e7e8e9;
+  --soft:#f5f5f4;
+  --white:#fff;
+  --muted:#72777b;
+  --accent:#b7bcc0;
+  --gold:#b89a55;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  background:#d7d9da;
+  color:#111;
+  font-family:Inter,Arial,Helvetica,sans-serif;
+  -webkit-font-smoothing:antialiased;
+}
+button{font:inherit;cursor:pointer}
+.app{
+  width:100%;
+  max-width:460px;
+  min-height:100vh;
+  margin:auto;
+  background:#f8f8f7;
+  padding-bottom:88px;
+  box-shadow:0 0 40px #00000018;
+}
+.header{
+  position:sticky;
+  top:0;
+  z-index:20;
+  background:#080808;
+  color:#fff;
+  padding:13px 15px 12px;
+  border-bottom:1px solid #292929;
+}
+.head{display:flex;align-items:center;justify-content:space-between}
+.logo{text-align:center;line-height:1}
+.logo b{
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:23px;
+  letter-spacing:4px;
+  font-weight:700;
+}
+.logo b span{color:#c5c8ca}
+.logo small{
+  display:block;
+  margin-top:6px;
+  font-size:7px;
+  letter-spacing:3px;
+  color:#aeb2b5;
+}
+.ico{
+  width:36px;height:36px;
+  border:1px solid #363636;
+  border-radius:50%;
+  background:#111;
+  color:#fff;
+  font-size:17px;
+}
+.hero{
+  margin:14px 13px 12px;
+  border-radius:20px;
+  padding:22px 18px 20px;
+  min-height:188px;
+  color:#fff;
+  position:relative;
+  overflow:hidden;
+  background:
+    radial-gradient(circle at 100% 0%,#62666b55 0,#62666b00 40%),
+    linear-gradient(135deg,#050505 0%,#181818 55%,#303235 100%);
+  box-shadow:0 12px 28px #00000020;
+  border:1px solid #343638;
+}
+.hero:before{
+  content:"";
+  position:absolute;
+  width:190px;height:190px;
+  right:-76px;bottom:-100px;
+  border:1px solid #ffffff22;
+  border-radius:50%;
+  box-shadow:0 0 0 22px #ffffff08,0 0 0 44px #ffffff05;
+}
+.hero:after{
+  content:"B";
+  position:absolute;
+  right:2px;top:-34px;
+  font:700 185px Georgia,serif;
+  color:#ffffff08;
+}
+.hero small{
+  position:relative;z-index:2;
+  font-size:8px;
+  letter-spacing:2.4px;
+  color:#c9cdd0;
+}
+.hero h1{
+  position:relative;z-index:2;
+  font:700 30px Georgia,"Times New Roman",serif;
+  margin:8px 0 7px;
+  letter-spacing:-.4px;
+}
+.hero p{
+  position:relative;z-index:2;
+  font-size:10px;
+  line-height:1.55;
+  max-width:285px;
+  color:#d7d9db;
+  margin:0;
+}
+.pill{
+  position:relative;z-index:2;
+  display:inline-flex;
+  margin-top:15px;
+  padding:7px 11px;
+  border:1px solid #c8cdd099;
+  border-radius:20px;
+  color:#f2f3f3;
+  font-size:8px;
+  font-weight:800;
+  letter-spacing:.7px;
+}
+.account{
+  margin:0 13px 11px;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:15px;
+  padding:13px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  box-shadow:0 5px 18px #00000008;
+}
+.label{
+  font-size:8px;
+  color:#888d91;
+  letter-spacing:1.2px;
+}
+.value{font-size:15px;font-weight:800;margin-top:4px}
+.account .tag{
+  font-size:8px;
+  color:#fff;
+  background:#111;
+  padding:7px 9px;
+  border-radius:8px;
+  font-weight:800;
+  letter-spacing:.5px;
+}
+.actions{
+  padding:0 13px 14px;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:7px;
+}
+.action{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:10px 2px;
+  color:#171717;
+  font-size:8px;
+  font-weight:800;
+  box-shadow:0 3px 12px #00000006;
+}
+.action span{
+  display:block;
+  width:29px;height:29px;
+  line-height:29px;
+  margin:0 auto 5px;
+  border-radius:50%;
+  background:#111;
+  color:#fff;
+  font-size:15px;
+}
+.title{
+  padding:4px 13px 11px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+.title:before,.title:after{
+  content:"";
+  height:1px;
+  background:#c6c9cb;
+  flex:1;
+}
+.title h2{
+  font:700 12px Georgia,"Times New Roman",serif;
+  color:#171717;
+  white-space:nowrap;
+  letter-spacing:1px;
+}
+.plans{padding:0 13px}
+.plan{
+  background:#fff;
+  border:1px solid #dedfe0;
+  border-radius:17px;
+  margin-bottom:12px;
+  overflow:hidden;
+  box-shadow:0 7px 20px #0000000c;
+}
+.top{
+  display:grid;
+  grid-template-columns:43% 57%;
+  min-height:160px;
+}
+.photo{
+  position:relative;
+  background-size:cover;
+  background-position:center;
+  min-height:160px;
+}
+.photo:after{
+  content:"";
+  position:absolute;inset:0;
+  background:linear-gradient(180deg,#00000005,#00000062);
+}
+.level{
+  position:absolute;
+  z-index:2;
+  top:9px;left:9px;
+  background:#fff;
+  border-radius:7px;
+  padding:6px 8px;
+  color:#171717;
+  font-size:8px;
+  font-weight:900;
+  letter-spacing:.5px;
+}
+.info{padding:13px 11px}
+.name{
+  font:700 17px Georgia,"Times New Roman",serif;
+  color:#111;
+  letter-spacing:.2px;
+}
+.desc{
+  font-size:7px;
+  color:#888d91;
+  margin:4px 0 8px;
+  letter-spacing:.6px;
+  font-weight:700;
+}
+.row{
+  display:flex;
+  justify-content:space-between;
+  gap:8px;
+  border-top:1px solid #f0f1f1;
+  padding:6px 0;
+  font-size:8px;
+}
+.row label{color:#8b9094}
+.price{font-size:12px;color:#111}
+.benefit{font-size:11px;color:#111}
+.purchased,.not{
+  padding:4px 7px;
+  border-radius:6px;
+  font-weight:800;
+}
+.purchased{color:#fff;background:#111}
+.not{color:#777;background:#eef0f1}
+.bottom{padding:7px 11px 12px}
+.buy{
+  width:100%;
+  margin:0;
+  border:0;
+  border-radius:10px;
+  padding:11px;
+  background:linear-gradient(180deg,#222,#050505);
+  color:#fff;
+  font-size:9px;
+  font-weight:900;
+  letter-spacing:.7px;
+  box-shadow:0 6px 16px #00000020;
+  transition:transform .15s ease,box-shadow .15s ease;
+}
+.buy:hover{box-shadow:0 8px 20px #00000028;transform:translateY(-1px)}
+.buy:active{transform:translateY(1px)}
+.buy:disabled{
+  background:#c8ccce;
+  color:#fff;
+  box-shadow:none;
+}
+.band{
+  margin:4px 13px 13px;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:15px;
+  padding:13px;
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  text-align:center;
+}
+.band div+div{border-left:1px solid #e4e5e6}
+.band b{
+  display:block;
+  color:#171717;
+  font-size:9px;
+  letter-spacing:.4px;
+}
+.band span{
+  display:block;
+  color:#888d91;
+  font-size:7px;
+  margin-top:4px;
+  line-height:1.35;
+}
+.nav{
+  position:fixed;
+  bottom:0;left:50%;
+  transform:translateX(-50%);
+  width:min(460px,100%);
+  height:74px;
+  padding-bottom:env(safe-area-inset-bottom);
+  background:#080808;
+  border-top:1px solid #2c2c2c;
+  display:grid;
+  grid-template-columns:repeat(5,1fr);
+  z-index:30;
+}
+.nav button{
+  border:0;background:none;color:#8f9498;
+  font-size:8px;
+  padding-top:6px;
+}
+.nav i{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  width:34px;height:28px;
+  margin:0 auto 4px;
+  font-style:normal;
+  font-size:17px;
+}
+.nav .active{color:#fff;font-weight:800}
+.nav .active i{
+  background:#fff;
+  color:#111;
+  border-radius:10px;
+}
+.toast{
+  position:fixed;
+  z-index:40;
+  bottom:91px;left:50%;
+  transform:translateX(-50%) translateY(8px);
+  background:#111;
+  color:#fff;
+  padding:10px 15px;
+  border-radius:9px;
+  font-size:10px;
+  opacity:0;
+  pointer-events:none;
+  transition:.22s ease;
+  box-shadow:0 8px 20px #0003;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@media(min-width:461px){
+  body{padding:20px 0}
+  .app{border-radius:20px;overflow:hidden;min-height:calc(100vh - 40px)}
+  .nav{bottom:20px;border-radius:0 0 20px 20px}
+}
+</style>
+</head>
+<body>
+<div class="app">
+
+<header class="header">
+  <div class="head">
+    <button class="ico" aria-label="Menu">☰</button>
+    <div class="logo"><b>BENZ <span>ERA</span></b><small>VIP MEMBERSHIP</small></div>
+    <button class="ico" aria-label="Account">♙</button>
+  </div>
+</header>
+
+<section class="hero">
+  <small>WELCOME TO BENZ ERA</small>
+  <h1>Choose Your Status.</h1>
+  <p>Premium VIP memberships inspired by iconic Mercedes-Benz classes.</p>
+  <span class="pill">90-DAY MEMBERSHIP</span>
+</section>
+
+<section class="account">
+  <div>
+    <div class="label">MEMBERSHIP STATUS</div>
+    <div class="value" id="overall">No VIP Purchased</div>
+  </div>
+  <div class="tag">BENZ ERA</div>
+</section>
+
+<div class="actions">
+  <button class="action" onclick="location.href='deposit.html'"><span>＋</span>Deposit</button>
+  <button class="action" onclick="location.href='withdraw.html'"><span>↗</span>Withdraw</button>
+  <button class="action" onclick="msg('Channel')"><span>◈</span>Channel</button>
+  <button class="action" onclick="msg('Service')"><span>◉</span>Service</button>
+</div>
+
+<div class="title"><h2>VIP MEMBERSHIP</h2></div>
+
+<main class="plans">
+  <article class="plan" data-id="vip1">
+    <div class="top">
+      <div class="photo" style='background-image:url("https://images.unsplash.com/photo-16066614515524-ed2f786a0bd6?auto=format&fit=crop&w=700&q=85")'><span class="level">VIP 1</span></div>
+      <div class="info">
+        <div class="name">GLE</div><div class="desc">BEST-SELLING SUV</div>
+        <div class="row"><label>PRICE</label><strong class="price">UGX 20,000</strong></div>
+        <div class="row"><label>VALIDITY</label><strong>90 DAYS</strong></div>
+        <div class="row"><label>BENEFIT</label><strong class="benefit">10%</strong></div>
+        <div class="row"><label>STATUS</label><strong class="status"></strong></div>
+      </div>
+    </div>
+    <div class="bottom"><button class="buy" onclick="purchase('vip1')">BUY NOW</button></div>
+  </article>
+
+  <article class="plan" data-id="vip2">
+    <div class="top">
+      <div class="photo" style='background-image:url("https://images.unsplash.com/photo-1553440569-bcc63803a83d?auto=format&fit=crop&w=700&q=85")'><span class="level">VIP 2</span></div>
+      <div class="info">
+        <div class="name">E-CLASS</div><div class="desc">BEST ALL-ROUNDER</div>
+        <div class="row"><label>PRICE</label><strong class="price">UGX 40,000</strong></div>
+        <div class="row"><label>VALIDITY</label><strong>90 DAYS</strong></div>
+        <div class="row"><label>BENEFIT</label><strong class="benefit">15%</strong></div>
+        <div class="row"><label>STATUS</label><strong class="status"></strong></div>
+      </div>
+    </div>
+    <div class="bottom"><button class="buy" onclick="purchase('vip2')">BUY NOW</button></div>
+  </article>
+
+  <article class="plan" data-id="vip3">
+    <div class="top">
+      <div class="photo" style='background-image:url("https://images.unsplash.com/photo-1520031441872-265e4ff70366?auto=format&fit=crop&w=700&q=85")'><span class="level">VIP 3</span></div>
+      <div class="info">
+        <div class="name">G-CLASS</div><div class="desc">MOST ICONIC</div>
+        <div class="row"><label>PRICE</label><strong class="price">UGX 100,000</strong></div>
+        <div class="row"><label>VALIDITY</label><strong>90 DAYS</strong></div>
+        <div class="row"><label>BENEFIT</label><strong class="benefit">18%</strong></div>
+        <div class="row"><label>STATUS</label><strong class="status"></strong></div>
+      </div>
+    </div>
+    <div class="bottom"><button class="buy" onclick="purchase('vip3')">BUY NOW</button></div>
+  </article>
+
+  <article class="plan" data-id="vip4">
+    <div class="top">
+      <div class="photo" style='background-image:url("https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=700&q=85")'><span class="level">VIP 4</span></div>
+      <div class="info">
+        <div class="name">S-CLASS</div><div class="desc">BEST LUXURY SEDAN</div>
+        <div class="row"><label>PRICE</label><strong class="price">UGX 200,000</strong></div>
+        <div class="row"><label>VALIDITY</label><strong>90 DAYS</strong></div>
+        <div class="row"><label>BENEFIT</label><strong class="benefit">20%</strong></div>
+        <div class="row"><label>STATUS</label><strong class="status"></strong></div>
+      </div>
+    </div>
+    <div class="bottom"><button class="buy" onclick="purchase('vip4')">BUY NOW</button></div>
+  </article>
+</main>
+
+<section class="band">
+  <div><b>90 DAYS</b><span>Validity per purchase</span></div>
+  <div><b>MAX 3</b><span>Purchases per VIP</span></div>
+  <div><b>4 LEVELS</b><span>GLE to S-Class</span></div>
+</section>
+
+</div>
+
+<nav class="nav">
+  <button class="active"><i>⌂</i>Home</button>
+  <button onclick="location.href='orders.html'"><i>□</i>Orders</button>
+  <button onclick="location.href='promotion.html'"><i>◇</i>Promotion</button>
+  <button onclick="location.href='team.html'"><i>♧</i>Team</button>
+  <button onclick="location.href='profile.html'"><i>♙</i>Profile</button>
+</nav>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const MAX=3;
+function count(id){return +localStorage.getItem('benz_'+id)||0}
+function render(){
+  let any=false;
+  document.querySelectorAll('.plan').forEach(c=>{
+    let n=count(c.dataset.id),s=c.querySelector('.status'),b=c.querySelector('.buy');
+    if(n){any=true;s.textContent='Purchased';s.className='status purchased'}
+    else{s.textContent='Not Purchased';s.className='status not'}
+    if(n>=MAX){b.textContent='PURCHASE LIMIT REACHED';b.disabled=true}
+    else{b.textContent='BUY NOW';b.disabled=false}
+  });
+  document.getElementById('overall').textContent=any?'VIP Purchased':'No VIP Purchased'
+}
+function purchase(id){
+  let n=count(id);
+  if(n>=MAX){msg('Maximum 3 purchases reached');return}
+  /* Connect real payment confirmation here before incrementing. */
+  localStorage.setItem('benz_'+id,n+1);
+  render();
+  msg('VIP purchased');
+}
+function msg(t){
+  let x=document.getElementById('toast');
+  x.textContent=t;x.classList.add('show');
+  clearTimeout(window.t);
+  window.t=setTimeout(()=>x.classList.remove('show'),1700)
+}
+render();
+</script>
+</body>
+</html>
