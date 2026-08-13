@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#080808">
+<title>Benz Era — Security</title>
+<style>
+:root{--black:#070707;--bg:#f7f7f6;--line:#e1e3e4;--muted:#858a8e}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:Inter,Arial,Helvetica,sans-serif;color:#111}
+body{background:#d7d9da;-webkit-font-smoothing:antialiased}
+button,input{font:inherit}button{cursor:pointer}
+.app{width:100%;max-width:460px;min-height:100vh;margin:auto;background:var(--bg);padding-bottom:28px;box-shadow:0 0 40px #0002}
+.top{background:#080808;color:#fff;padding:16px 15px 19px;border-bottom:1px solid #2c2c2c}
+.topline{display:flex;align-items:center;gap:12px}
+.back{width:36px;height:36px;border:1px solid #383838;border-radius:50%;background:#111;color:#fff;font-size:22px;line-height:30px}
+.brand{flex:1;text-align:center}.brand b{font:700 17px Georgia,serif;letter-spacing:3px}.brand small{display:block;margin-top:5px;color:#aeb2b5;font-size:6px;letter-spacing:2px}
+.page-title{margin-top:17px;font:700 24px Georgia,serif}.page-sub{margin-top:5px;color:#aeb2b5;font-size:8px;letter-spacing:1px}
+.security-banner{margin:14px 13px 12px;padding:16px;border-radius:17px;background:linear-gradient(135deg,#080808,#292b2d);color:#fff;box-shadow:0 9px 22px #00000018}
+.security-icon{width:42px;height:42px;border-radius:13px;background:#fff;color:#111;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:11px}
+.security-banner b{font:700 17px Georgia,serif}.security-banner p{margin:5px 0 0;color:#bfc3c6;font-size:8px;line-height:1.55}
+.section-title{padding:8px 13px 10px;display:flex;align-items:center;gap:10px}
+.section-title:before,.section-title:after{content:"";height:1px;background:#c9ccce;flex:1}
+.section-title h2{margin:0;font:700 11px Georgia,serif;letter-spacing:1px;white-space:nowrap}
+.form-card{margin:0 13px 12px;background:#fff;border:1px solid var(--line);border-radius:16px;padding:15px;box-shadow:0 6px 18px #00000009}
+.field{margin-bottom:13px}.field:last-child{margin-bottom:0}
+.field label{display:block;margin-bottom:6px;color:#7c8286;font-size:7px;font-weight:900;letter-spacing:1px}
+.password-wrap{position:relative}.password-wrap input{padding-right:60px}
+input{width:100%;padding:12px 11px;border:1px solid #d8dbdd;border-radius:9px;background:#fafafa;color:#111;outline:none;font-size:11px}
+input:focus{border-color:#111;background:#fff;box-shadow:0 0 0 3px #0000000a}
+.toggle{position:absolute;right:6px;top:50%;transform:translateY(-50%);border:0;background:transparent;color:#555;font-size:7px;font-weight:900;letter-spacing:.5px;padding:7px}
+.requirements{margin-top:10px;padding:11px;border-radius:10px;background:#f5f6f6;border:1px solid #e3e5e6}
+.requirements b{font-size:8px}.requirements ul{padding:0;margin:7px 0 0;list-style:none}
+.requirements li{font-size:7px;color:#8a9093;margin:5px 0}.requirements li.ok{color:#111;font-weight:800}
+.strength{height:4px;background:#e5e6e7;border-radius:5px;margin-top:8px;overflow:hidden}.strength span{display:block;height:100%;width:0;background:#111;transition:.2s}
+.actions{margin-top:2px}.save{width:calc(100% - 26px);margin:3px 13px 12px;border:0;border-radius:11px;padding:13px;background:linear-gradient(180deg,#252525,#070707);color:#fff;font-size:9px;font-weight:900;letter-spacing:1px;box-shadow:0 7px 17px #00000020}
+.cancel{width:calc(100% - 26px);margin:0 13px 14px;border:1px solid #d5d8da;border-radius:11px;padding:12px;background:#fff;color:#111;font-size:9px;font-weight:900;letter-spacing:.7px}
+.toast{position:fixed;z-index:40;bottom:24px;left:50%;transform:translateX(-50%) translateY(8px);background:#111;color:#fff;padding:10px 15px;border-radius:9px;font-size:10px;opacity:0;pointer-events:none;transition:.22s;box-shadow:0 8px 20px #0003}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@media(min-width:461px){body{padding:20px 0}.app{border-radius:20px;overflow:hidden;min-height:calc(100vh - 40px)}}
+</style>
+<script src="assets/js/benz-era.js"></script>
+</head>
+<body>
+<div class="app">
+<header class="top">
+  <div class="topline">
+    <button class="back" onclick="goBack()" aria-label="Back">‹</button>
+    <div class="brand"><b>BENZ ERA</b><small>VIP MEMBERSHIP</small></div>
+    <div style="width:36px"></div>
+  </div>
+  <div class="page-title">Security</div>
+  <div class="page-sub">PASSWORD & ACCOUNT PROTECTION</div>
+</header>
+
+<section class="security-banner">
+  <div class="security-icon">⌑</div>
+  <b>Change Login Password</b>
+  <p>Keep your Benz Era account secure by using a strong password that you do not share with anyone.</p>
+</section>
+
+<div class="section-title"><h2>UPDATE PASSWORD</h2></div>
+
+<section class="form-card">
+  <div class="field">
+    <label for="currentPassword">CURRENT PASSWORD</label>
+    <div class="password-wrap">
+      <input id="currentPassword" type="password" autocomplete="current-password" placeholder="Enter current password">
+      <button class="toggle" type="button" onclick="togglePassword('currentPassword',this)">SHOW</button>
+    </div>
+  </div>
+
+  <div class="field">
+    <label for="newPassword">NEW PASSWORD</label>
+    <div class="password-wrap">
+      <input id="newPassword" type="password" autocomplete="new-password" placeholder="Enter new password" oninput="checkStrength()">
+      <button class="toggle" type="button" onclick="togglePassword('newPassword',this)">SHOW</button>
+    </div>
+    <div class="strength"><span id="strengthBar"></span></div>
+  </div>
+
+  <div class="field">
+    <label for="confirmPassword">CONFIRM NEW PASSWORD</label>
+    <div class="password-wrap">
+      <input id="confirmPassword" type="password" autocomplete="new-password" placeholder="Repeat new password" oninput="checkMatch()">
+      <button class="toggle" type="button" onclick="togglePassword('confirmPassword',this)">SHOW</button>
+    </div>
+  </div>
+
+  <div class="requirements">
+    <b>Password requirements</b>
+    <ul>
+      <li id="r-length">• At least 8 characters</li>
+      <li id="r-upper">• At least one uppercase letter</li>
+      <li id="r-number">• At least one number</li>
+      <li id="r-special">• At least one special character</li>
+      <li id="r-match">• New passwords must match</li>
+    </ul>
+  </div>
+</section>
+
+<button class="save" onclick="changePassword()">CHANGE PASSWORD & RETURN TO PROFILE</button>
+<button class="cancel" onclick="goBack()">CANCEL & RETURN TO PROFILE</button>
+
+<div class="toast" id="toast"></div>
+</div>
+
+<script>
+function togglePassword(id,btn){
+  const input=document.getElementById(id);
+  const show=input.type==='password';
+  input.type=show?'text':'password';
+  btn.textContent=show?'HIDE':'SHOW';
+}
+
+function mark(id,ok){
+  document.getElementById(id).classList.toggle('ok',ok);
+}
+
+function checkStrength(){
+  const p=document.getElementById('newPassword').value;
+  const score=[
+    p.length>=8,
+    /[A-Z]/.test(p),
+    /[0-9]/.test(p),
+    /[^A-Za-z0-9]/.test(p)
+  ].filter(Boolean).length;
+  document.getElementById('strengthBar').style.width=(score*25)+'%';
+  mark('r-length',p.length>=8);
+  mark('r-upper',/[A-Z]/.test(p));
+  mark('r-number',/[0-9]/.test(p));
+  mark('r-special',/[^A-Za-z0-9]/.test(p));
+  checkMatch();
+}
+
+function checkMatch(){
+  const p=document.getElementById('newPassword').value;
+  const c=document.getElementById('confirmPassword').value;
+  mark('r-match',!!c && p===c);
+}
+
+function changePassword(){
+  const current=document.getElementById('currentPassword').value;
+  const next=document.getElementById('newPassword').value;
+  const confirm=document.getElementById('confirmPassword').value;
+
+  if(!current){msg('Enter your current password');return}
+  if(next.length<8 || !/[A-Z]/.test(next) || !/[0-9]/.test(next) || !/[^A-Za-z0-9]/.test(next)){
+    msg('Use a stronger password');return
+  }
+  if(next!==confirm){msg('New passwords do not match');return}
+
+  /*
+    Front-end demo/localStorage behavior.
+    For a real login system, password verification and password changes
+    must be handled securely by your server/backend, not localStorage.
+  */
+  localStorage.setItem('benz_login_password',next);
+  msg('Password changed successfully');
+  setTimeout(()=>window.location.href='profile.html',600);
+}
+
+function goBack(){window.location.href='profile.html'}
+
+function msg(text){
+  const x=document.getElementById('toast');
+  x.textContent=text;x.classList.add('show');
+  clearTimeout(window.t);
+  window.t=setTimeout(()=>x.classList.remove('show'),1700);
+}
+</script>
+</body>
+</html>

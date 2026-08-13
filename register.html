@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en"><head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#080808"><title>Benz Era — Register</title>
+<style>
+:root{--black:#070707;--bg:#f5f5f4;--line:#dedfe0;--muted:#7e8387}
+*{box-sizing:border-box}body{margin:0;background:#d7d9da;color:#111;font-family:Arial,sans-serif}
+button,input{font:inherit}button{cursor:pointer}.app{max-width:460px;min-height:100vh;margin:auto;background:var(--bg);padding-bottom:28px;box-shadow:0 0 40px #0002}
+.top{background:#080808;color:#fff;padding:16px;text-align:center}.logo b{font:700 27px Georgia,serif;letter-spacing:5px}.logo b span{color:#c5c9cc}.logo small{display:block;margin-top:7px;font-size:7px;letter-spacing:3px;color:#aeb2b5}
+.hero{margin:15px 13px;padding:21px 18px;border-radius:20px;background:linear-gradient(135deg,#050505,#171717 55%,#333538);color:#fff;position:relative;overflow:hidden;box-shadow:0 12px 28px #0002}.hero:after{content:"B";position:absolute;right:-4px;top:-43px;font:700 180px Georgia,serif;color:#fff0008}.hero>*{position:relative;z-index:2}.hero small{font-size:8px;letter-spacing:2px;color:#c9cdd0}.hero h1{margin:7px 0 5px;font:700 27px Georgia,serif}.hero p{margin:0;font-size:9px;line-height:1.5;color:#d4d7d9}
+.title{padding:8px 13px 10px;display:flex;align-items:center;gap:10px}.title:before,.title:after{content:"";height:1px;background:#c9ccce;flex:1}.title h2{margin:0;font:700 12px Georgia,serif;letter-spacing:1px}
+.form{margin:0 13px;background:#fff;border:1px solid var(--line);border-radius:17px;padding:15px;box-shadow:0 6px 18px #00000009}.field{margin-bottom:13px}.field:last-child{margin-bottom:0}
+label{display:flex;justify-content:space-between;margin-bottom:6px;font-size:8px;font-weight:900;letter-spacing:1px;color:#777c80}.required{font-size:7px;color:#111}
+input{width:100%;height:43px;border:1px solid #dfe1e2;background:#fafafa;border-radius:10px;padding:0 12px;font-size:11px;outline:none}.input-wrap{position:relative}.input-wrap input{padding-right:65px}.password-toggle{position:absolute;right:8px;top:7px;height:29px;padding:0 8px;border:1px solid #d9dcde;border-radius:7px;background:#fff;font-size:8px;font-weight:800}
+.referral-box{border:1px solid #c9ccce;background:#f4f5f5;border-radius:11px;padding:10px}.referral-box input{background:#fff}.help{margin-top:5px;font-size:7px;color:#92979a;line-height:1.4}.referral-locked{background:#eeeeee!important;color:#555;cursor:not-allowed;border-color:#c9ccce!important}.ref-status{display:none;margin-top:7px;font-size:8px;font-weight:800}.ref-status.show{display:block}.valid{color:#111}.invalid{color:#9a2525}
+.check{display:flex;align-items:flex-start;gap:8px;margin:14px 2px 0;font-size:8px;color:#73787b;line-height:1.45}.check input{width:14px;height:14px;min-width:14px;margin:0;accent-color:#111}
+.register{width:calc(100% - 26px);margin:13px;border:0;border-radius:11px;padding:14px;background:linear-gradient(180deg,#252525,#070707);color:#fff;font-size:9px;font-weight:900;letter-spacing:1px}.register:disabled{opacity:.45;cursor:not-allowed}
+.security{margin:0 13px;padding:11px 12px;border:1px solid #dedfe0;border-radius:12px;background:#eff0f0;color:#72777b;font-size:8px;line-height:1.5}.login{text-align:center;font-size:9px;color:#81868a;margin-top:10px}.login button{border:0;background:none;color:#111;font-size:9px;font-weight:900}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(8px);background:#111;color:#fff;padding:10px 15px;border-radius:9px;font-size:10px;opacity:0;pointer-events:none;transition:.2s}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@media(min-width:461px){body{padding:20px 0}.app{border-radius:20px;overflow:hidden;min-height:calc(100vh - 40px)}}
+</style><script src="assets/js/benz-era.js"></script>
+</head><body>
+<div class="app">
+<header class="top"><div class="logo"><b>BENZ <span>ERA</span></b><small>VIP MEMBERSHIP</small></div></header>
+<section class="hero"><small>MEMBERSHIP REGISTRATION</small><h1>Create Your Account.</h1><p>Register your Benz Era membership account using a valid referral code.</p></section>
+<div class="title"><h2>ACCOUNT DETAILS</h2></div>
+<section class="form">
+<div class="field"><label>USERNAME <span class="required">REQUIRED</span></label><input id="username" type="text" autocomplete="username" placeholder="Choose a username"></div>
+<div class="field"><label>PASSWORD <span class="required">REQUIRED</span></label><div class="input-wrap"><input id="password" type="password" autocomplete="new-password" placeholder="Create a password"><button class="password-toggle" type="button" onclick="togglePassword('password',this)">SHOW</button></div></div>
+<div class="field"><label>CONFIRM PASSWORD <span class="required">REQUIRED</span></label><div class="input-wrap"><input id="confirmPassword" type="password" autocomplete="new-password" placeholder="Repeat your password"><button class="password-toggle" type="button" onclick="togglePassword('confirmPassword',this)">SHOW</button></div></div>
+<div class="field referral-box"><label>REFERRAL CODE <span class="required">REQUIRED</span></label><input id="referral_code" type="text" autocomplete="off" placeholder="Enter referral code" oninput="validateReferral()"><div class="help" id="refHelp">A valid referral code is compulsory. You cannot register without one.</div><div id="refStatus" class="ref-status"></div></div>
+<label class="check"><input id="terms" type="checkbox" onchange="updateButton()"><span>I agree to the Benz Era membership terms and confirm that the information provided is correct.</span></label>
+</section>
+<button id="registerBtn" class="register" disabled onclick="registerUser()">CREATE ACCOUNT</button>
+<div class="security"><strong>Account security:</strong> Never share your password, Mobile Money PIN, exchange password, seed phrase, or private key here.</div>
+<div class="login">Already have an account? <button onclick="location.href='login.html'">LOGIN</button></div>
+</div><div id="toast" class="toast"></div>
+<script>
+function getValidReferralCodes(){
+  const s=localStorage.getItem('benz_valid_referral_codes');
+  if(s){
+    try{return JSON.parse(s).map(String).map(x=>x.trim().toUpperCase())}catch(e){}
+  }
+  return[];
+}
+
+function getReferralFromLink(){
+  const params=new URLSearchParams(window.location.search);
+  return (params.get('ref')||params.get('referral_code')||'').trim().toUpperCase();
+}
+
+const referralFromLink=getReferralFromLink();
+
+function initializeReferral(){
+  const input=document.getElementById('referral_code');
+  const help=document.getElementById('refHelp');
+
+  if(referralFromLink){
+    input.value=referralFromLink;
+    input.readOnly=true;
+    input.classList.add('referral-locked');
+    help.textContent='Referral code supplied by your referral link. It cannot be changed.';
+    validateReferral();
+  }
+}
+
+function validateReferral(){
+  const code=document.getElementById('referral_code').value.trim().toUpperCase();
+  const st=document.getElementById('refStatus');
+
+  if(!code){
+    st.className='ref-status';
+    st.textContent='';
+    updateButton();
+    return false;
+  }
+
+  const valid=getValidReferralCodes().includes(code);
+  st.className='ref-status show '+(valid?'valid':'invalid');
+  st.textContent=valid?'✓ Referral code accepted':'✕ Invalid referral code';
+  updateButton();
+  return valid;
+}
+
+function updateButton(){const u=username.value.trim(),p=password.value,c=confirmPassword.value,r=referral_code.value.trim(),t=terms.checked,v=r&&getValidReferralCodes().includes(r.toUpperCase());registerBtn.disabled=!(u&&p&&c&&p===c&&v&&t)}
+document.querySelectorAll('input').forEach(x=>x.addEventListener('input',updateButton));
+function registerUser(){if(!validateReferral()){msg('Valid referral code required');return}const u=username.value.trim(),r=referral_code.value.trim().toUpperCase();const id='BE-'+Date.now().toString(36).toUpperCase();localStorage.setItem('benz_user_id',id);localStorage.setItem('benz_username',u);localStorage.setItem('benz_referral_code',r);localStorage.setItem('benz_referred_by',r);
+  localStorage.setItem('benz_referral_source', referralFromLink ? 'referral_link' : 'manual');msg('Account created successfully');setTimeout(()=>location.href='profile.html',900)}
+function togglePassword(id,b){const i=document.getElementById(id);i.type=i.type==='password'?'text':'password';b.textContent=i.type==='password'?'SHOW':'HIDE'}
+function msg(t){const x=document.getElementById('toast');x.textContent=t;x.classList.add('show');clearTimeout(window.tt);window.tt=setTimeout(()=>x.classList.remove('show'),1800)}
+initializeReferral();
+updateButton();
+</script></body></html>

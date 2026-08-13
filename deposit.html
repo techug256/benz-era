@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#070707"><title>Benz Era — Deposit</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#d7d9da;font-family:Inter,Arial,sans-serif;color:#111}
+.app{max-width:460px;min-height:100vh;margin:auto;background:#f5f5f4;padding-bottom:30px}
+header{background:#080808;color:#fff;padding:17px;text-align:center;position:sticky;top:0;z-index:5}
+header b{font:700 25px Georgia,serif;letter-spacing:4px}header span{color:#c7a66a}
+main{padding:15px}.hero{background:linear-gradient(135deg,#050505,#303235);color:white;border-radius:19px;padding:20px;margin-bottom:14px}
+.hero small{font-size:7px;letter-spacing:2px;color:#e6d2aa}.hero h1{font:700 26px Georgia,serif;margin:5px 0}.hero p{font-size:9px;color:#c8cbcd}
+.box{background:white;border:1px solid #ddd;border-radius:16px;padding:15px;margin-bottom:12px;box-shadow:0 8px 22px #0000000b}
+label{display:block;font-size:8px;font-weight:800;letter-spacing:1px;color:#777;margin-bottom:6px}
+input,select{width:100%;height:44px;border:1px solid #ddd;border-radius:10px;padding:0 10px;box-sizing:border-box;margin-bottom:11px;background:#fff}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:3px 0 13px}.preset{border:1px solid #d8d9da;background:#f8f8f8;color:#111;border-radius:10px;padding:11px 5px;font-size:9px;font-weight:900}
+.preset.active{background:#111;color:#fff;border-color:#111}
+button,.btn{display:block;width:100%;border:0;border-radius:10px;padding:13px;background:#0b0b0b;color:white;font-weight:800;margin-top:9px;text-decoration:none;text-align:center}
+.btn.secondary{background:#fff;color:#111;border:1px solid #d8d9da}.muted{font-size:9px;color:#777;line-height:1.5}
+.phone-hint{padding:10px;background:#f3f4f4;border-radius:10px;font-size:8px;color:#666;margin-bottom:10px}
+.modal{position:fixed;inset:0;background:#0009;display:none;align-items:flex-end;justify-content:center;z-index:20}
+.modal.show{display:flex}.sheet{width:min(460px,100%);background:#fff;border-radius:22px 22px 0 0;padding:20px;box-shadow:0 -10px 30px #0004}
+.sheet h2{font:700 20px Georgia,serif;margin:0 0 6px}.amount-big{font-size:25px;font-weight:900;margin:12px 0}
+.statusbox{padding:12px;border-radius:10px;background:#f3f4f4;font-size:9px;line-height:1.5}.danger{color:#a33}
+.close{background:#f2f2f2;color:#111}
+</style>
+<script src="assets/js/benz-era.js"></script>
+</head>
+<body><div class="app">
+<header><b>BENZ <span>ERA</span></b></header>
+<main>
+<div class="hero"><small>WALLET</small><h1>Deposit Funds</h1><p>Choose a preset or enter your own amount.</p></div>
+<div class="box">
+<label>DEPOSIT AMOUNT</label>
+<div class="grid">
+<button type="button" class="preset" data-value="20000" onclick="pick(20000)">UGX 20,000</button>
+<button type="button" class="preset" data-value="40000" onclick="pick(40000)">UGX 40,000</button>
+<button type="button" class="preset" data-value="100000" onclick="pick(100000)">UGX 100,000</button>
+</div>
+<input id="amount" type="number" min="1" step="1" placeholder="Or fill in deposit amount" oninput="clearPreset()">
+
+<label>PHONE NUMBER TO USE FOR DEPOSIT</label>
+<input id="phone" type="tel" inputmode="tel" placeholder="e.g. 077xxxxxxx" autocomplete="tel">
+<div class="phone-hint">The payment request will be sent to this phone. You approve the debit on your phone using your Mobile Money PIN. Never enter your PIN on this website.</div>
+<button onclick="beginDeposit()">DEPOSIT</button>
+</div>
+<a class="btn secondary" href="profile.html">BACK TO PROFILE</a>
+</main></div>
+
+<div class="modal" id="modal">
+<div class="sheet">
+<h2>Confirm Mobile Money Deposit</h2>
+<div class="muted">A payment request is ready for your phone.</div>
+<div class="amount-big" id="confirmAmount">UGX 0</div>
+<div class="statusbox" id="paymentStatus">Waiting to send the request…</div>
+<button id="sendBtn" onclick="sendPaymentRequest()">SEND PAYMENT REQUEST</button>
+<button class="close" onclick="closeModal()">CANCEL</button>
+</div></div>
+
+<script>
+let pending={amount:0,phone:''};
+function money(n){return 'UGX '+Number(n).toLocaleString();}
+function pick(n){
+ document.getElementById('amount').value=n;
+ document.querySelectorAll('.preset').forEach(b=>b.classList.toggle('active',Number(b.dataset.value)===n));
+}
+function clearPreset(){document.querySelectorAll('.preset').forEach(b=>b.classList.remove('active'))}
+function normalizePhone(v){
+ let x=String(v||'').replace(/\s+/g,'');
+ if(/^0\d{9}$/.test(x)) return '256'+x.slice(1);
+ if(/^\+256\d{9}$/.test(x)) return x.slice(1);
+ if(/^256\d{9}$/.test(x)) return x;
+ return '';
+}
+function beginDeposit(){
+ const amount=Number(document.getElementById('amount').value);
+ const phone=normalizePhone(document.getElementById('phone').value);
+ if(!(amount>0)){alert('Enter a valid deposit amount.');return}
+ if(!phone){alert('Enter a valid Ugandan mobile number.');return}
+ pending={amount,phone};
+ document.getElementById('confirmAmount').textContent=money(amount);
+ document.getElementById('paymentStatus').innerHTML='Review the amount and phone number, then send the request. Your PIN is entered <b>on your phone only</b>.';
+ document.getElementById('sendBtn').disabled=false;
+ document.getElementById('sendBtn').textContent='SEND PAYMENT REQUEST';
+ document.getElementById('modal').classList.add('show');
+}
+function closeModal(){document.getElementById('modal').classList.remove('show')}
+async function sendPaymentRequest(){
+ const btn=document.getElementById('sendBtn'), box=document.getElementById('paymentStatus');
+ btn.disabled=true; box.textContent='Sending payment request…';
+ /*
+  Production connection point:
+  POST /api/payments/mtn/request-to-pay
+  body: { amount, phone, userId }
+  The server must call MTN MoMo RequestToPay and return a transaction/reference ID.
+  The browser must never receive or store MTN API keys or the customer PIN.
+ */
+ try{
+   const res=await fetch('/api/payments/mtn/request-to-pay',{
+     method:'POST',headers:{'Content-Type':'application/json'},
+     body:JSON.stringify({amount:pending.amount,phone:pending.phone,userId:localStorage.getItem('benz_user_id')})
+   });
+   if(!res.ok) throw new Error('Payment service is not connected.');
+   const data=await res.json();
+   const ref=data.reference||data.transactionId||data.externalId;
+   box.innerHTML='Payment request sent. <b>Check your phone and enter your Mobile Money PIN there.</b><br>Waiting for confirmation…';
+   pollPayment(ref);
+ }catch(e){
+   box.innerHTML='<span class="danger"><b>Payment gateway not connected.</b></span><br>Connect the MTN MoMo backend endpoint before accepting real deposits. No balance was added.';
+   btn.disabled=false; btn.textContent='TRY AGAIN';
+ }
+}
+async function pollPayment(ref){
+ if(!ref)return;
+ let tries=0;
+ const timer=setInterval(async()=>{
+   tries++;
+   try{
+     const res=await fetch('/api/payments/mtn/status/'+encodeURIComponent(ref));
+     if(res.ok){
+       const data=await res.json();
+       if(data.status==='SUCCESSFUL'){
+         clearInterval(timer);
+         BenzEra.confirmDeposit(pending.amount,'mobile-money',ref);
+         document.getElementById('paymentStatus').textContent='Payment confirmed. Your account balance has been updated.';
+         setTimeout(()=>location.href='profile.html',1000);
+       }else if(['FAILED','REJECTED','EXPIRED'].includes(data.status)){
+         clearInterval(timer);
+         document.getElementById('paymentStatus').textContent='Payment was not completed. No balance was added.';
+         document.getElementById('sendBtn').disabled=false;
+       }
+     }
+   }catch(e){}
+   if(tries>=30){clearInterval(timer);document.getElementById('paymentStatus').textContent='Still waiting. Check your Mobile Money messages or try again later.';document.getElementById('sendBtn').disabled=false}
+ },3000);
+}
+</script>
+</body></html>

@@ -1,0 +1,481 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#080808">
+<title>Benz Era — Profile</title>
+<style>
+:root{
+  --black:#070707;
+  --black-2:#111;
+  --graphite:#1c1c1d;
+  --silver:#aeb3b7;
+  --silver-light:#d9dde0;
+  --line:#e5e6e7;
+  --bg:#f7f7f6;
+  --muted:#7b8084;
+  --white:#fff;
+}
+*{box-sizing:border-box}
+html,body{margin:0;min-height:100%;font-family:Inter,Arial,Helvetica,sans-serif;color:#111}
+body{background:#d7d9da;-webkit-font-smoothing:antialiased}
+button{font:inherit;cursor:pointer}
+.app{
+  width:100%;max-width:460px;min-height:100vh;margin:auto;
+  background:var(--bg);padding-bottom:94px;
+  box-shadow:0 0 40px #0002;
+}
+.header{
+  background:var(--black);color:#fff;padding:13px 15px 12px;
+  border-bottom:1px solid #2c2c2c;
+}
+.head{display:flex;align-items:center;justify-content:space-between}
+.logo{text-align:center;line-height:1}
+.logo b{font:700 23px Georgia,"Times New Roman",serif;letter-spacing:4px}
+.logo b span{color:#c5c9cc}
+.logo small{display:block;margin-top:6px;font-size:7px;letter-spacing:3px;color:#aeb2b5}
+.ico{
+  width:36px;height:36px;border:1px solid #383838;border-radius:50%;
+  background:#111;color:#fff;font-size:17px;
+}
+.profile-hero{
+  margin:14px 13px 12px;
+  padding:20px 17px;
+  border-radius:20px;
+  background:linear-gradient(135deg,#050505,#171717 55%,#303235);
+  border:1px solid #36383a;
+  color:#fff;
+  position:relative;
+  overflow:hidden;
+  box-shadow:0 12px 28px #00000020;
+}
+.profile-hero:after{
+  content:"B";
+  position:absolute;right:-2px;top:-38px;
+  font:700 175px Georgia,serif;color:#fff00008;
+}
+.avatar{
+  position:relative;z-index:2;
+  width:62px;height:62px;border-radius:50%;
+  background:linear-gradient(145deg,#fff,#aeb3b7);
+  color:#111;
+  display:flex;align-items:center;justify-content:center;
+  font:700 25px Georgia,serif;
+  border:3px solid #fff;
+  box-shadow:0 5px 16px #0005;
+  margin-bottom:13px;
+}
+.hero-label{position:relative;z-index:2;font-size:8px;letter-spacing:2px;color:#c9cdd0}
+.username{
+  position:relative;z-index:2;
+  margin:5px 0 4px;
+  font:700 25px Georgia,"Times New Roman",serif;
+  word-break:break-word;
+}
+.member{
+  position:relative;z-index:2;
+  display:inline-flex;
+  margin-top:5px;
+  padding:6px 9px;
+  border:1px solid #ffffff35;
+  border-radius:20px;
+  color:#dfe2e4;
+  font-size:8px;
+  font-weight:800;
+  letter-spacing:.7px;
+}
+.section-title{
+  padding:8px 13px 10px;
+  display:flex;align-items:center;gap:10px;
+}
+.section-title:before,.section-title:after{content:"";height:1px;background:#c9ccce;flex:1}
+.section-title h2{
+  margin:0;font:700 12px Georgia,"Times New Roman",serif;
+  letter-spacing:1px;color:#171717;white-space:nowrap;
+}
+.info-card{
+  margin:0 13px 12px;
+  background:#fff;border:1px solid var(--line);
+  border-radius:16px;overflow:hidden;
+  box-shadow:0 6px 18px #00000009;
+}
+.info-row{
+  min-height:68px;padding:12px 13px;
+  display:flex;align-items:center;justify-content:space-between;gap:15px;
+}
+.info-row+.info-row{border-top:1px solid #eeeeef}
+.info-left{display:flex;align-items:center;gap:11px;min-width:0}
+.info-icon{
+  flex:0 0 34px;width:34px;height:34px;border-radius:10px;
+  background:#111;color:#fff;display:flex;align-items:center;justify-content:center;
+  font-size:15px;
+}
+.info-label{font-size:8px;color:#858a8e;letter-spacing:1px}
+.info-value{
+  margin-top:4px;font-size:13px;font-weight:800;
+  word-break:break-word;text-align:right;
+}
+.copy{
+  border:1px solid #d9dcde;background:#f6f7f7;color:#111;
+  border-radius:8px;padding:6px 8px;font-size:8px;font-weight:800;
+}
+.status{
+  display:inline-flex;padding:6px 8px;border-radius:8px;
+  background:#111;color:#fff;font-size:8px;font-weight:800;
+}
+.menu-card{
+  margin:0 13px 12px;background:#fff;
+  border:1px solid var(--line);border-radius:16px;
+  overflow:hidden;box-shadow:0 6px 18px #00000009;
+}
+.menu-item{
+  width:100%;border:0;background:#fff;
+  padding:13px;display:flex;align-items:center;
+  text-align:left;gap:11px;color:#111;
+}
+.menu-item+.menu-item{border-top:1px solid #eeeeef}
+.menu-icon{
+  width:34px;height:34px;border-radius:10px;
+  background:#f0f1f2;color:#111;display:flex;align-items:center;justify-content:center;
+  font-size:15px;flex:0 0 34px;
+}
+.menu-text{flex:1}
+.menu-text b{display:block;font-size:10px}
+.menu-text span{display:block;margin-top:3px;color:#92979a;font-size:7px}
+.arrow{color:#969b9e;font-size:17px}
+.logout{
+  width:calc(100% - 26px);margin:3px 13px 14px;
+  border:0;border-radius:11px;padding:12px;
+  background:linear-gradient(180deg,#252525,#070707);
+  color:#fff;font-size:9px;font-weight:900;letter-spacing:1px;
+  box-shadow:0 7px 17px #00000020;
+}
+.nav{
+  position:fixed;bottom:0;left:50%;transform:translateX(-50%);
+  width:min(460px,100%);height:74px;
+  padding-bottom:env(safe-area-inset-bottom);
+  background:#080808;border-top:1px solid #2c2c2c;
+  display:grid;grid-template-columns:repeat(5,1fr);z-index:30;
+}
+.nav button{border:0;background:none;color:#8f9498;font-size:8px;padding-top:6px}
+.nav i{
+  display:flex;align-items:center;justify-content:center;
+  width:34px;height:28px;margin:0 auto 4px;font-style:normal;font-size:17px;
+}
+.nav .active{color:#fff;font-weight:800}
+.nav .active i{background:#fff;color:#111;border-radius:10px}
+.toast{
+  position:fixed;z-index:40;bottom:91px;left:50%;
+  transform:translateX(-50%) translateY(8px);
+  background:#111;color:#fff;padding:10px 15px;border-radius:9px;
+  font-size:10px;opacity:0;pointer-events:none;transition:.22s;
+  box-shadow:0 8px 20px #0003;
+}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@media(min-width:461px){
+  body{padding:20px 0}
+  .app{border-radius:20px;overflow:hidden;min-height:calc(100vh - 40px)}
+  .nav{bottom:20px;border-radius:0 0 20px 20px}
+}
+
+.financial-actions{margin:0 13px 13px;display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.financial-btn{border:0;border-radius:13px;padding:13px 10px;display:flex;align-items:center;justify-content:center;gap:8px;font-size:9px;font-weight:900;letter-spacing:.6px;box-shadow:0 6px 15px #00000012;transition:.15s ease}
+.financial-btn:active{transform:translateY(1px)}
+.financial-btn.deposit{background:linear-gradient(180deg,#252525,#070707);color:#fff}
+.financial-btn.withdraw{background:#fff;color:#111;border:1px solid #d5d8da}
+.financial-icon{width:25px;height:25px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:14px}
+.deposit .financial-icon{background:#fff;color:#111}
+.withdraw .financial-icon{background:#111;color:#fff}
+.card-preview{margin:0 13px 12px;padding:15px;border-radius:17px;background:linear-gradient(135deg,#090909,#242628 65%,#45484a);color:#fff;min-height:138px;position:relative;overflow:hidden;box-shadow:0 9px 22px #00000018}
+.card-preview:after{content:"";position:absolute;width:180px;height:180px;right:-80px;top:-90px;border:1px solid #fff2;border-radius:50%;box-shadow:0 0 0 20px #fff0008,0 0 0 40px #fff0005}
+.card-top{display:flex;align-items:center;justify-content:space-between;position:relative;z-index:2}
+.card-brand{font:700 11px Georgia,serif;letter-spacing:2px}
+.card-chip{width:31px;height:23px;border-radius:5px;background:linear-gradient(135deg,#c8c8c8,#777);border:1px solid #fff5}
+.card-number{position:relative;z-index:2;margin-top:28px;font-size:14px;letter-spacing:2px;font-weight:700}
+.card-bottom{position:relative;z-index:2;display:flex;justify-content:space-between;margin-top:10px}
+.card-meta label{display:block;color:#aeb2b5;font-size:6px;letter-spacing:1px}
+.card-meta b{display:block;margin-top:3px;font-size:8px}
+.card-manage{width:calc(100% - 26px);margin:0 13px 13px;border:1px solid #d9dcde;background:#fff;color:#111;border-radius:11px;padding:11px;font-size:9px;font-weight:900;letter-spacing:.6px}
+
+
+.card-type{margin-top:5px;font-size:6px;letter-spacing:1.2px;color:#aeb2b5}
+#cardChip{display:flex;align-items:center;justify-content:center;color:#111;font-size:13px}
+.saved-methods{
+  margin:0 13px 12px;
+  background:#fff;
+  border:1px solid #e1e3e4;
+  border-radius:15px;
+  overflow:hidden;
+  box-shadow:0 5px 16px #00000008;
+}
+.method-option{
+  width:100%;
+  border:0;
+  background:#fff;
+  padding:11px;
+  display:flex;
+  align-items:center;
+  gap:10px;
+  text-align:left;
+  color:#111;
+}
+.method-option+.method-option{border-top:1px solid #eeeeef}
+.method-option.active{background:#f6f7f7}
+.method-icon{
+  width:34px;height:34px;border-radius:10px;
+  background:#111;color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:900;font-size:14px;flex:0 0 34px;
+}
+.method-option span:nth-child(2){flex:1}
+.method-option b{display:block;font-size:9px}
+.method-option small{display:block;margin-top:3px;color:#92979a;font-size:7px}
+.method-option i{font-style:normal;color:#969b9e;font-size:17px}
+
+
+/* PREMIUM POLISH */
+:root{--gold:#c7a66a;--gold-soft:#e6d2aa;}
+body{background:radial-gradient(circle at 50% 0,#f0f1f1 0,#d7d9da 42%,#cfd1d2 100%);}
+.app{background:linear-gradient(180deg,#fafafa,#f5f5f4);border-left:1px solid #fff;border-right:1px solid #fff;}
+.header{background:linear-gradient(180deg,#050505,#101112);position:sticky;top:0;z-index:25;box-shadow:0 8px 24px #0003;}
+.ico{transition:.18s ease;background:linear-gradient(145deg,#171717,#0c0c0c);}
+.ico:active{transform:scale(.94);}
+.logo b{letter-spacing:4.5px}.logo b span{color:var(--gold-soft);}
+.profile-hero{margin-top:16px;padding:22px 18px 21px;border-radius:21px;background:radial-gradient(circle at 90% 10%,#ffffff18,transparent 30%),linear-gradient(135deg,#030303,#111315 58%,#303234);border-color:#3d3f40;box-shadow:0 16px 34px #00000024;}
+.profile-hero:before{content:"";position:absolute;left:0;top:0;width:100%;height:2px;background:linear-gradient(90deg,transparent,var(--gold),transparent);opacity:.8;}
+.avatar{background:linear-gradient(145deg,#fff,#d2d5d7 60%,#9ca2a6);}.member{border-color:#c7a66a55;background:#c7a66a12;color:#eee0c7;}
+.info-card,.menu-card,.saved-methods{border-color:#dedfe0;box-shadow:0 8px 22px #0000000c;}
+.info-row{min-height:72px;transition:background .15s ease}.info-row:hover,.menu-item:hover{background:#fafafa;}
+.financial-btn{min-height:50px;border-radius:14px;transition:.18s ease}.financial-btn:hover{transform:translateY(-1px);box-shadow:0 9px 20px #00000018;}
+.card-preview{min-height:154px;padding:17px 16px;border-radius:18px;background:radial-gradient(circle at 100% 0,#ffffff14,transparent 30%),linear-gradient(135deg,#050505,#191b1d 58%,#45484a);border:1px solid #ffffff12;box-shadow:0 13px 28px #00000020;}
+.card-preview:before{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 0 48%,#ffffff07 49% 51%,transparent 52%);pointer-events:none;}
+.card-number{margin-top:31px;font-size:15px;letter-spacing:2.4px;text-shadow:0 2px 8px #0008}.card-chip{background:linear-gradient(135deg,#dedede,#888);}
+.method-option,.menu-item,.copy,.card-manage,.logout,.nav button{transition:.16s ease}.method-option:hover{background:#f8f8f8}.method-option.active{background:linear-gradient(90deg,#f3f4f4,#fff);}
+.copy:hover,.card-manage:hover{background:#111;color:#fff;border-color:#111}.arrow{transition:.15s ease}.menu-item:hover .arrow{transform:translateX(2px)}
+.logout:hover{transform:translateY(-1px);box-shadow:0 10px 22px #0003}.nav{background:rgba(8,8,8,.96);backdrop-filter:blur(14px);box-shadow:0 -8px 25px #0003;}
+.nav button:not(.active):hover{color:#fff}.nav .active i{box-shadow:0 4px 12px #fff3}.toast{backdrop-filter:blur(10px);font-weight:700;}
+@media(max-width:360px){.username{font-size:22px}.info-row{gap:9px;padding-left:11px;padding-right:11px}.info-value{font-size:12px}.card-number{font-size:13px;letter-spacing:1.8px}}
+
+.wallet-manager{
+  margin:0 13px 14px;
+  background:#fff;
+  border:1px solid #e1e3e4;
+  border-radius:17px;
+  padding:15px;
+  box-shadow:0 7px 20px #0000000b;
+}
+.wallet-manager h3{margin:0;font:700 14px Georgia,serif;letter-spacing:.4px}
+.wallet-manager .sub{margin:5px 0 14px;color:#858a8e;font-size:8px;line-height:1.5}
+.wallet-tabs{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:12px}
+.wallet-tab{
+  border:1px solid #d9dcde;background:#f6f7f7;border-radius:10px;
+  padding:9px 7px;font-size:8px;font-weight:900;letter-spacing:.5px
+}
+.wallet-tab.active{background:#111;color:#fff;border-color:#111}
+.wallet-form{display:none}
+.wallet-form.active{display:block}
+.wallet-form label{display:block;font-size:7px;font-weight:900;letter-spacing:1px;color:#777d81;margin:10px 0 5px}
+.wallet-form input{
+  width:100%;padding:11px 10px;border:1px solid #d9dcde;border-radius:9px;
+  outline:none;font-size:11px;background:#fafafa
+}
+.wallet-form input:focus{border-color:#111;background:#fff;box-shadow:0 0 0 3px #0000000a}
+.save-wallet{
+  width:100%;margin-top:13px;border:0;border-radius:10px;padding:12px;
+  background:linear-gradient(180deg,#252525,#070707);color:#fff;
+  font-size:9px;font-weight:900;letter-spacing:.8px
+}
+.saved-wallet{
+  margin-top:13px;padding:11px;border-radius:11px;background:#f5f6f6;
+  border:1px solid #e2e4e5;display:flex;align-items:center;gap:10px
+}
+.saved-wallet .sw-icon{
+  width:34px;height:34px;border-radius:10px;background:#111;color:#fff;
+  display:flex;align-items:center;justify-content:center;font-weight:900
+}
+.saved-wallet .sw-main{flex:1;min-width:0}
+.saved-wallet b{display:block;font-size:9px}
+.saved-wallet span{display:block;margin-top:3px;font-size:7px;color:#888e92;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.saved-wallet .remove-wallet{
+  border:0;background:#fff;border:1px solid #d9dcde;border-radius:7px;
+  padding:6px 7px;font-size:7px;font-weight:900
+}
+
+</style>
+
+<style>
+body{background:#d7d9da}
+.app{padding-bottom:25px;min-height:100vh}
+.wallet-page-head{
+  background:#080808;color:#fff;padding:16px 15px 18px;
+  border-bottom:1px solid #2c2c2c;
+}
+.wallet-page-head .back{
+  border:1px solid #383838;background:#111;color:#fff;border-radius:50%;
+  width:36px;height:36px;font-size:20px;line-height:30px;
+}
+.wallet-page-head .title{
+  margin-top:16px;font:700 24px Georgia,serif;letter-spacing:.5px
+}
+.wallet-page-head .subtitle{
+  margin-top:5px;color:#aeb2b5;font-size:8px;letter-spacing:1px
+}
+.wallet-only{padding-top:14px}
+.wallet-manager{
+  margin:0 13px 14px;padding:18px;
+}
+.wallet-manager h3{font-size:16px}
+.wallet-manager .sub{font-size:9px;line-height:1.6}
+.wallet-form input{font-size:12px;padding:12px}
+.save-wallet{padding:13px}
+.saved-wallet{display:none!important}
+</style>
+
+<script src="assets/js/benz-era.js"></script>
+</head>
+<body>
+<div class="app">
+
+  <header class="wallet-page-head">
+    <button class="back" type="button" onclick="goBack()" aria-label="Back">‹</button>
+    <div class="title">Manage Bank Cards</div>
+    <div class="subtitle">PAYMENT WALLET MANAGEMENT</div>
+  </header>
+
+  <main class="wallet-only">
+    <section class="wallet-manager">
+      <h3>ADD PAYMENT WALLET</h3>
+      <div class="sub">
+        Add the wallet you want to use for deposits and withdrawals.
+        After saving, you will automatically return to your profile and
+        the payment card will display the saved details.
+      </div>
+
+      <div class="wallet-tabs">
+        <button class="wallet-tab active" type="button" onclick="switchWalletForm('mobile')">
+          MOBILE MONEY
+        </button>
+        <button class="wallet-tab" type="button" onclick="switchWalletForm('usdt')">
+          USDT TRC20
+        </button>
+      </div>
+
+      <div class="wallet-form active" id="mobileWalletForm">
+        <label for="mobileName">REGISTERED NAME</label>
+        <input id="mobileName" type="text" placeholder="Enter registered name" autocomplete="name">
+
+        <label for="mobileNumber">MOBILE MONEY NUMBER</label>
+        <input id="mobileNumber" type="tel" placeholder="07XXXXXXXX" autocomplete="tel">
+
+        <button class="save-wallet" type="button" onclick="saveWallet('mobile')">
+          SAVE & RETURN TO PROFILE
+        </button>
+      </div>
+
+      <div class="wallet-form" id="usdtWalletForm">
+        <label for="exchangeName">EXCHANGE / WALLET NAME</label>
+        <input id="exchangeName" type="text" placeholder="e.g. Binance, OKX, Trust Wallet">
+
+        <label for="usdtAddress">USDT TRC20 WALLET ADDRESS</label>
+        <input id="usdtAddress" type="text" placeholder="Enter TRC20 wallet address" autocomplete="off">
+
+        <button class="save-wallet" type="button" onclick="saveWallet('usdt')">
+          SAVE & RETURN TO PROFILE
+        </button>
+      </div>
+    </section>
+  </main>
+
+  <div class="toast" id="toast"></div>
+</div>
+
+<script>
+function switchWalletForm(type){
+  document.querySelectorAll('.wallet-tab').forEach((btn,i)=>{
+    btn.classList.toggle(
+      'active',
+      (type==='mobile'&&i===0)||(type==='usdt'&&i===1)
+    );
+  });
+
+  document.getElementById('mobileWalletForm')
+    .classList.toggle('active',type==='mobile');
+
+  document.getElementById('usdtWalletForm')
+    .classList.toggle('active',type==='usdt');
+}
+
+function saveWallet(type){
+  if(type==='mobile'){
+    const name=document.getElementById('mobileName').value.trim();
+    const number=document.getElementById('mobileNumber').value.trim();
+
+    if(!name || !number){
+      msg('Enter the registered name and mobile number');
+      return;
+    }
+
+    localStorage.setItem('benz_mobile_name',name);
+    localStorage.setItem('benz_mobile_number',number);
+    localStorage.setItem('benz_payment_method','mobile');
+
+  }else{
+    const exchange=document.getElementById('exchangeName').value.trim();
+    const address=document.getElementById('usdtAddress').value.trim();
+
+    if(!exchange || !address){
+      msg('Enter the exchange and wallet address');
+      return;
+    }
+
+    localStorage.setItem('benz_exchange_name',exchange);
+    localStorage.setItem('benz_usdt_address',address);
+    localStorage.setItem('benz_payment_method','usdt');
+  }
+
+  /*
+    profile.html reads these same localStorage keys.
+    Returning to profile.html therefore makes the card show
+    the newly saved wallet immediately.
+  */
+  setTimeout(function(){
+    window.location.href='profile.html';
+  },250);
+}
+
+function goBack(){
+  window.location.href='profile.html';
+}
+
+function msg(text){
+  const x=document.getElementById('toast');
+  x.textContent=text;
+  x.classList.add('show');
+  clearTimeout(window.walletToast);
+  window.walletToast=setTimeout(
+    ()=>x.classList.remove('show'),1700
+  );
+}
+
+function loadExistingWallet(){
+  const type=localStorage.getItem('benz_payment_method') || 'mobile';
+
+  if(type==='mobile'){
+    document.getElementById('mobileName').value =
+      localStorage.getItem('benz_mobile_name') || '';
+    document.getElementById('mobileNumber').value =
+      localStorage.getItem('benz_mobile_number') || '';
+  }else{
+    switchWalletForm('usdt');
+    document.getElementById('exchangeName').value =
+      localStorage.getItem('benz_exchange_name') || '';
+    document.getElementById('usdtAddress').value =
+      localStorage.getItem('benz_usdt_address') || '';
+  }
+}
+
+loadExistingWallet();
+</script>
+</body>
+</html>
